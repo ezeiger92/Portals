@@ -1,0 +1,6 @@
+# Portals config
+worlds:
+  world:
+    size: 1
+    nether: world_nether
+    end: world_the_end

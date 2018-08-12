@@ -1,0 +1,16 @@
+name: Portals
+main: com.chromaclypse.portals.PortalsPlugin
+version: ${project.version}
+description: Link portals
+author: ezeiger92
+api-version: 1.13
+depend: [ChromaLib]
+commands:
+  portals:
+    description: Root portals command
+    usage: /<command> reload
+    permission: portals.reload
+permissions:
+  portals.reload:
+    description: Reload perm
+    default: op
