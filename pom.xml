@@ -30,15 +30,15 @@
 	</repositories>
 	<dependencies>
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>1.13-R0.1-SNAPSHOT</version>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.14.4-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.chromaclypse.api</groupId>
 			<artifactId>ChromaclypseApi</artifactId>
-			<version>1.1.0</version>
+			<version>1.4.2</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
