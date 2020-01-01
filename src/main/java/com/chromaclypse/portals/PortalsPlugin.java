@@ -1,10 +1,12 @@
 package com.chromaclypse.portals;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.chromaclypse.api.command.CommandBase;
+import com.chromaclypse.api.command.Context;
 
 public class PortalsPlugin extends JavaPlugin {
 	private final PortalsConfig config = new PortalsConfig();
@@ -12,7 +14,15 @@ public class PortalsPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		config.init(this);
-		getCommand("portals").setExecutor(this);
+
+		TabExecutor ch = new CommandBase()
+				.calls(this::helpCommand)
+				.with().arg("reload").calls(this::reloadCommand)
+				.with().arg("version").calls(CommandBase::pluginVersion)
+				.getCommand();
+		
+		getCommand("portals").setExecutor(ch);
+		getCommand("portals").setTabCompleter(ch);
 		getServer().getPluginManager().registerEvents(new TravelPlanner(config), this);
 	}
 	
@@ -21,14 +31,14 @@ public class PortalsPlugin extends JavaPlugin {
 		HandlerList.unregisterAll(this);
 	}
 	
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
-			config.init(this);
-			sender.sendMessage(ChatColor.GREEN + "Reloaded config");
-		}
-		else
-			sender.sendMessage(ChatColor.RED + "Usage: /"+label+" reload");
+	private boolean helpCommand(Context context) {
+		context.Sender().sendMessage(ChatColor.RED + "Usage: /"+context.Alias()+" reload");
+		return true;
+	}
+	
+	private boolean reloadCommand(Context context) {
+		config.init(this);
+		context.Sender().sendMessage(ChatColor.GREEN + "Reloaded config");
 		return true;
 	}
 }
